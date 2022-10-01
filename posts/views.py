@@ -7,12 +7,12 @@ class PostListView(ListView):
     template_name = "posts/list.html"
     model = Post
 
-class PstDetailView(DetailView):
+class PostDetailView(DetailView):
     template_name = "posts/detail.html"
     model = Post
 
 class PostCreateView(CreateView):
-    template_name = "posts/create.html"
+    template_name = "posts/new.html"
     model = Post
     fields = ["title", "subtitle", "author", "body"]
 
