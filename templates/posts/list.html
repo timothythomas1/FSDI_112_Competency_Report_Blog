@@ -6,12 +6,17 @@
 
 {% block content %}
     <ul>
+        <h1>All Posts</h1>
         {% for post in post_list %}
-            <li>
-                <a href="{% url 'detail' post.id %}">
-                    {{ post.title }}
-                </a>
-            </li>
-        {% endfor %}
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ post.subtitle }}</h6>
+              <p class="card-text">{{ post.body|truncatechars:350 }}</p> {# There are more filters out there! #}
+              <a href="{% url 'detail' post.id %}" class="card-link">Read more</a>
+            </div>
+        </div>
+        <br />
+    {% endfor %}
     </ul>
 {% endblock content %}
