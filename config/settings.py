@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wweje8aod=7!uh5_39xl*vl_3!n8v-sfbwa*wn_9&@%c+oq=4b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".herokuapp.com"] # Creates the heroku sub-domains
 
 
 # Application definition
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic", # From https://whitenoise.evans.io/en/stable/django.html?highlight=local%20noserver
     'django.contrib.staticfiles',
     'pages',
     'posts',
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Collects and compresses static files for GUNICORN server
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -120,6 +122,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [str(BASE_DIR.joinpath("static"))]
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" # from https://whitenoise.evans.io/en/stable/ for gunicorn CSS rendering
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
